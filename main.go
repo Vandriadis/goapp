@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -8,6 +9,12 @@ import (
 	"net/url"
 	"os"
 )
+
+type People struct {
+	Name   string   `json:"name"`
+	Height string   `json:"height"`
+	Film   []string `json:"films"`
+}
 
 func main() {
 	args := os.Args
@@ -31,10 +38,21 @@ func main() {
 	defer response.Body.Close()
 
 	body, err := io.ReadAll(response.Body)
-	
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("HTTP Status Code: %d\nBody: %s\n", response.StatusCode, body)
+	if response.StatusCode != 200 {
+		fmt.Printf("Invalid output (HTTP Code %d): %s\n", response.StatusCode, body)
+		os.Exit(1)
+	}
+
+	var people People
+
+	err = json.Unmarshal(body, &people)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("JSON Parsed\nName: %s\nHeight: %s\nFilms: %v", people.Name, people.Height, people.Film)
 }
