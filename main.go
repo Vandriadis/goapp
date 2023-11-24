@@ -4,7 +4,14 @@ import (
 	"fmt"
 	"os"
 )
-func main()  {
+
+func main() {
 	args := os.Args[1:]
-	fmt.Printf("Hello world!\nArguments: %v\n", args)
+	if len(args) > 1 {
+		fmt.Printf("Hello world!\nArguments: %v\n", args)
+	} else {
+		fmt.Println("Need args. Example: ./main.go arg1")
+		os.Exit(1)
+	}
+
 }
