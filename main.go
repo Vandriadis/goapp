@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 )
 
 type People struct {
@@ -54,5 +55,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("JSON Parsed\nName: %s\nHeight: %s\nFilms: %v", people.Name, people.Height, people.Film)
+	fmt.Printf("JSON Parsed\nName: %s\nHeight: %s\nFilms: %v", people.Name, people.Height, strings.Join(people.Film, ", "))
 }
