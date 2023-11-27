@@ -16,7 +16,7 @@ This code requires the following dependencies:
 
 To run the program, use the following command:
 
-go run main.go <url>
+go run main.go <<url>>
 
 Replace  `<url>`  with the URL from which you want to retrieve JSON data.
 
